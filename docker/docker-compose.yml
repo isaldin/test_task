@@ -1,0 +1,37 @@
+version: "2.4"
+
+services:
+  test-frontend:
+    container_name: sportrec_test_front
+    build:
+      context: ../front
+      dockerfile: ../docker/front.Dockerfile
+      target: static-html
+    ports:
+      - 80:80
+
+  test-backend:
+    container_name: sportrec_test_backend
+    depends_on:
+      - test-mongo
+    ports:
+      - 4000:4000
+    env_file:
+      - ../backend/.env
+    environment:
+      MONGO_HOST: test-mongo
+    build:
+      dockerfile: ../docker/backend.Dockerfile
+      context: ../backend
+      target: prod-build
+    command: node build/index.js
+
+  test-mongo:
+    image: mongo:4.2.2
+    container_name: "sportrec_test_mongo"
+    env_file:
+      - ../backend/.env
+    volumes:
+      - ../backend/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    ports:
+      - 27017:27017

@@ -1,0 +1,25 @@
+{
+  "name": "@test/backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@types/mongoose": "^5.7.18",
+    "nodemon": "^2.0.3",
+    "ts-node": "^8.10.1",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^3.9.2"
+  },
+  "dependencies": {
+    "apollo-server": "^2.13.1",
+    "dotenv": "^8.2.0",
+    "graphql": "^15.0.0",
+    "mongoose": "^5.9.13",
+    "mongoose-unique-validator": "^2.0.3"
+  },
+  "scripts": {
+    "dev": "nodemon --watch 'src/**/*' -e ts --exec ts-node ./src/index.ts",
+    "docker": "docker-compose -f docker-compose.yml up -d"
+  }
+}
